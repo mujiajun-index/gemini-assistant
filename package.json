@@ -1,0 +1,22 @@
+{
+  "name": "gemini",
+  "version": "1.0.0",
+  "description": "这是一个基于 Google 最新的 Gemini 2.0 Flash 模型构建的多模态对话网页应用。通过这个应用，您可以与 Gemini 进行文本对话、上传图片进行分析、生成图片，以及进行文档和视频识别（部分功能仍在完善中）。",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "gemini": "file:",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "vite": "^5.4.14"
+  }
+}
