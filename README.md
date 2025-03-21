@@ -1,6 +1,6 @@
 # Gemini 2.0 多模态智能助手
 
-这是一个基于 Google 最新的 Gemini 2.0 Flash 模型构建的多模态智能对话应用。通过 Vue.js 开发，实现了与 Gemini 先进模型的无缝交互，包括对话识图、图文生成、图片编辑和一致性生成等多种功能。
+这是一个基于 Google 最新的gemini-2.0-flash-exp模型、gemini-2.0-flash-exp-image-generation模型构建的多模态模型的轻量级智能对话应用。使用 Vue.js 3 开发的纯前端项目，无需后端服务器即可实现与 Gemini 模型的无缝交互，包括对话识图、图文生成、图片编辑和一致性生成等多种功能。。
 
 ## ✨ 功能亮点
 
@@ -14,7 +14,7 @@
 - 📄 文档分析：上传文档进行识别与分析（持续优化中）
 - 🎬 视频处理：上传视频进行智能处理（持续优化中）
 - 💾 本地存储：安全保存 API Key，无需重复输入
-- 📱 响应式设计：完美适配不同屏幕尺寸的设备
+- 📱 响应式设计：完美适配各种屏幕尺寸
 
 ## 🚀 快速开始
 
@@ -25,11 +25,11 @@
 3. 创建一个新的 API Key
 4. 复制生成的 API Key
 
-### 本地开发
+### 本地运行
 
 ```bash
 # 克隆项目
-git clone https://github.com/你的用户名/gemini-assistant.git
+git clone https://github.com/lfglfg11/gemini-assistant.git
 cd gemini-assistant
 
 # 安装依赖
@@ -39,15 +39,20 @@ npm install
 npm run dev
 ```
 
-### 生产部署
+### 部署
+
+作为纯静态项目，您可以轻松部署到任何静态托管平台：
 
 ```bash
 # 构建生产版本
 npm run build
-
-# 预览生产构建
-npm run preview
 ```
+
+推荐的托管平台：
+- GitHub Pages
+- Vercel
+- Netlify
+- Cloudflare Pages
 
 ## 💡 使用指南
 
@@ -68,20 +73,22 @@ npm run preview
 - **样式**：自定义 CSS
 - **部署**：支持多种部署方式（GitHub Pages、Vercel、Netlify 等）
 
-## 🔒 安全注意事项
+## 🔒 安全提示
 
-- API Key 存储在浏览器的本地存储中，请不要在公共设备上使用
-- 在生产环境中，建议使用环境变量或后端服务器管理 API 调用
-- 上传的媒体文件仅用于分析，不会永久存储
+- API Key 仅存储在浏览器本地，不会上传至任何服务器
+- 所有 API 调用直接从浏览器发起，无中间服务器
+- 媒体文件仅用于即时分析，不会存储
 
-## 🔜 未来规划
+## 🔜 开发计划
 
 - [ ] 增强文档处理能力
 - [ ] 完善视频分析功能
 - [ ] 添加对话历史导出功能
 - [ ] 实现更复杂的图像编辑能力
-- [ ] 支持多个 AI 模型切换
+- [ ] 支持OpenAI等主流 模型切换
 - [ ] 添加用户自定义主题
+- [ ] 实现流式响应
+- [ ] 管理后台及多用户注册、商用版本开发中
 
 ## 📄 许可证
 
@@ -91,14 +98,14 @@ MIT
 
 ## 🙏 贡献指南
 
-欢迎提交 Issue 和 Pull Request 来帮助改进这个项目！
+欢迎提交 Issue 和 Pull Request！
 
 1. Fork 本仓库
-2. 创建您的特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交您的更改 (`git commit -m 'Add some amazing feature'`)
+2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
+3. 提交更改 (`git commit -m 'Add some amazing feature'`)
 4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 开启一个 Pull Request
+5. 开启 Pull Request
 
 ---
 
-如果您对这个项目感兴趣或有任何建议，请随时联系我们！ 
+如果您对这个项目感兴趣或有任何建议，欢迎联系我们！
