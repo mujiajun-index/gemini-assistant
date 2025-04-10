@@ -2,7 +2,7 @@
   <!-- 系统消息 -->
   <div v-if="message.type === 'system'" class="message system">
     <i class="bi bi-info-circle-fill message-icon"></i>
-    <div class="message-content" v-html="formatText(message.content)"></div>
+    <div class="message-content" style="display: inline-block;" v-html="formatText(message.content)"></div>
   </div>
   
   <!-- 用户消息 -->

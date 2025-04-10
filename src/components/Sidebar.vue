@@ -1,8 +1,12 @@
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar" :class="{active: showSidebar}">
     <div class="sidebar-header">
       <h1>Gemini 助手</h1>
-      <div class="app-version">2.0</div>
+      <div class="app-version">2.5</div>
+      <!-- 隐藏侧边栏按钮 -->
+      <button class="icon-only sidebar-toggle" title="隐藏侧边栏" @click="toggleSidebar">
+        <i class="bi bi-x-lg"></i>
+      </button>
     </div>
     
     <div class="sidebar-section">
@@ -11,6 +15,12 @@
         <span>API 配置</span>
       </div>
       <div class="api-key-container">
+        <input 
+          type="text" 
+          id="api-domain" 
+          placeholder="API 域名 (可选)"
+          v-model="apiDomainInput"
+        >
         <input 
           type="password" 
           id="api-key" 
@@ -75,16 +85,21 @@ export default {
     currentModel: {
       type: String,
       required: true
+    },
+    apiDomain: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      apiKeyInput: this.apiKey
+      apiKeyInput: this.apiKey,
+      apiDomainInput: this.apiDomain
     }
   },
   methods: {
     saveApiKey() {
-      this.$emit('save-api-key', this.apiKeyInput)
+      this.$emit('save-api-key', this.apiKeyInput, this.apiDomainInput)
     },
     clearChat() {
       this.$emit('clear-chat')
@@ -95,12 +110,18 @@ export default {
     toggleModel() {
       // 暂时不实现模型切换功能
       console.log('模型切换功能暂未开启')
+    },
+    toggleSidebar() {
+      this.$emit('toggle-sidebar')
     }
   },
   watch: {
     apiKey(newValue) {
       this.apiKeyInput = newValue
+    },
+    apiDomain(newValue) {
+      this.apiDomainInput = newValue
     }
   }
 }
-</script> 
+</script>

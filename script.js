@@ -846,7 +846,8 @@ async function callGeminiAPI(prompt, media = null) {
     
     try {
         // 构建URL
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${apiKey}`;
+        const apiDomain = localStorage.getItem('gemini_api_domain') || 'https://generativelanguage.googleapis.com/v1beta';
+const url = `${apiDomain}/models/${currentModel}:generateContent?key=${apiKey}`;
         
         // 发送请求
         const response = await fetch(url, {
@@ -923,7 +924,8 @@ async function generateImage(prompt) {
         };
         
         // 构建URL，使用图像生成模型
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`;
+        const apiDomain = localStorage.getItem('gemini_api_domain') || 'https://generativelanguage.googleapis.com/v1beta';
+const url = `${apiDomain}/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`;
         
         console.log("发送图像生成请求:", JSON.stringify(requestBody));
         
@@ -1090,7 +1092,8 @@ async function editImage(imageData, prompt) {
         
         try {
             // 使用图像生成模型
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`;
+            const apiDomain = localStorage.getItem('gemini_api_domain') || 'https://generativelanguage.googleapis.com/v1beta';
+const url = `${apiDomain}/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`;
             
             // 发送请求
             const response = await fetch(url, {
@@ -1215,7 +1218,8 @@ async function editImageFallback(imageData, prompt) {
     
     try {
         // 使用标准模型作为备用
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+        const apiDomain = localStorage.getItem('gemini_api_domain') || 'https://generativelanguage.googleapis.com/v1beta';
+const url = `${apiDomain}/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
         
         // 发送请求
         const response = await fetch(url, {

@@ -1,24 +1,31 @@
 <template>
   <div class="app-container">
+    <!-- 移动端遮罩层 -->
+    <div class="overlay" :class="{active: showSidebar}" @click="toggleSidebar"></div>
     <!-- 侧边栏 -->
     <Sidebar 
+      v-show="showSidebar"
       :apiKey="apiKey" 
       :currentModel="currentModel" 
+      :apiDomain="apiDomain"
       @save-api-key="saveApiKey" 
       @clear-chat="clearChat" 
       @new-chat="newChat"
+      @toggle-sidebar="toggleSidebar"
     />
     
     <!-- 主内容区 -->
-    <main class="main-content">
+    <main class="main-content" :class="{'full-width': !showSidebar}">
       <ChatContainer 
         ref="chatContainer"
         :conversationHistory="conversationHistory"
         :apiKey="apiKey"
+        :apiDomain="apiDomain"
         :currentModel="currentModel"
         :isEditingImage="isEditingImage"
         :editingImageData="editingImageData"
         :currentMedia="currentMedia"
+        :showSidebar="showSidebar"
         @send-message="sendMessage"
         @generate-image="showImageGenerationUI"
         @reset-media="resetMediaPreview"
@@ -26,6 +33,7 @@
         @update:conversation-history="updateConversationHistory"
         @edit-image-complete="handleEditImageComplete"
         @set-media="setMediaPreview"
+        @toggle-sidebar="toggleSidebar"
       />
     </main>
     
@@ -49,7 +57,8 @@ export default {
   data() {
     return {
       apiKey: localStorage.getItem('gemini_api_key') || '',
-      currentModel: 'gemini-2.0-flash-exp',
+      apiDomain: localStorage.getItem('gemini_api_domain') || 'https://generativelanguage.googleapis.com/v1beta',
+      currentModel: localStorage.getItem('gemini_model') || 'gemini-2.0-flash-exp',
       conversationHistory: [],
       isEditingImage: false,
       editingImageData: null,
@@ -62,13 +71,16 @@ export default {
         { id: 'gemini-2.0-flash-exp-image-generation', name: '图像编辑' }
       ],
       hideInitialMessages: true,
-      hasUserStartedChat: false
+      hasUserStartedChat: false,
+      showSidebar: true // 控制侧边栏显示状态
     }
   },
   methods: {
-    saveApiKey(key) {
+    saveApiKey(key, domain) {
       this.apiKey = key
+      this.apiDomain = domain || 'https://generativelanguage.googleapis.com/v1beta'
       localStorage.setItem('gemini_api_key', key)
+      localStorage.setItem('gemini_api_domain', this.apiDomain)
       this.addSystemMessage('API Key 已保存，可以开始对话了。')
       
       // 仅在用户尚未开始对话时显示提示
@@ -122,6 +134,10 @@ export default {
     
     newChat() {
       this.clearChat()
+    },
+    
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar
     },
     
     async sendMessage(message) {
@@ -267,6 +283,43 @@ export default {
 <style>
   @import './assets/style.css';
   
+  /* 移动端遮罩层 */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+  
+  /* 移动端样式 */
+  @media (max-width: 768px) {
+    .overlay.active {
+      display: block;
+    }
+    
+    .sidebar {
+      position: fixed;
+      left: 0px;
+      top: 0;
+      height: 100%;
+      z-index: 999;
+      transition: left 0.3s ease;
+    }
+    
+    .sidebar.active {
+      left: 0;
+    }
+    
+    .main-content {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  
   /* 添加模式选择器样式 */
   .mode-selector {
     display: flex;
@@ -326,4 +379,4 @@ export default {
   .mode-badge i {
     margin-right: 4px;
   }
-</style> 
+</style>

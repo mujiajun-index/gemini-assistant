@@ -73,7 +73,7 @@ button {
 }
 
 .sidebar-header {
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -679,15 +679,15 @@ button {
     
     .sidebar {
         position: fixed;
-        left: -300px;
+        left: -100%;
         top: 0;
         height: 100%;
         z-index: 100;
-        transition: left 0.3s ease;
+        transition: all 0.3s ease;
         box-shadow: var(--shadow-lg);
     }
     
-    .sidebar.sidebar-open {
+    .sidebar.active {
         left: 0;
     }
 }
@@ -1045,4 +1045,4 @@ code {
         height: 36px;
         font-size: 20px;
     }
-} 
+}

@@ -3,7 +3,10 @@
     <!-- 顶部信息栏 -->
     <div class="chat-header">
       <div class="chat-title">
-        <i class="bi bi-chat-square-text-fill"></i>
+         <!-- 展开侧边栏按钮 -->
+        <button class="icon-only sidebar-toggle" title="展开侧边栏" @click="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
         <span>Gemini 多模态对话</span>
       </div>
       <div class="chat-actions">
@@ -134,6 +137,10 @@ export default {
       type: String,
       required: true
     },
+    apiDomain: {
+      type: String,
+      required: true
+    },
     currentModel: {
       type: String,
       required: true
@@ -149,6 +156,10 @@ export default {
     currentMedia: {
       type: Object,
       default: null
+    },
+    showSidebar: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -171,6 +182,11 @@ export default {
     }
   },
   methods: {
+    // 切换侧边栏显示状态
+    toggleSidebar() {
+      this.$emit('toggle-sidebar')
+    },
+    
     // 切换模式
     switchMode(mode) {
       if (this.currentMode !== mode) {
@@ -199,7 +215,7 @@ export default {
       } else if (this.currentMode === 'image') {
         return "描述您想要生成的图像，或输入图像相关问题...";
       } else {
-        return "输入您的问题或指令，也可以上传图片进行识别...";
+        return "输入您的问题，也可以上传图片进行识别...";
       }
     },
     
@@ -459,7 +475,7 @@ export default {
       
       // 发送请求
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelToUse}:generateContent?key=${this.apiKey}`
+        const url = `${this.apiDomain}/models/${modelToUse}:generateContent?key=${this.apiKey}`
         
         const response = await fetch(url, {
           method: 'POST',
@@ -572,7 +588,7 @@ export default {
       try {
         // 使用图文并茂模型
         const modelToUse = 'gemini-2.0-flash-exp-image-generation';
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelToUse}:generateContent?key=${this.apiKey}`
+        const url = `${this.apiDomain}/models/${modelToUse}:generateContent?key=${this.apiKey}`
         
         console.log("发送图像生成请求到URL:", url.replace(this.apiKey, "API_KEY_HIDDEN"))
         
@@ -668,7 +684,7 @@ export default {
       try {
         // 使用图文并茂模型
         const modelToUse = 'gemini-2.0-flash-exp-image-generation';
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelToUse}:generateContent?key=${this.apiKey}`
+        const url = `${this.apiDomain}/models/${modelToUse}:generateContent?key=${this.apiKey}`
         
         console.log("发送图像编辑请求到URL:", url.replace(this.apiKey, "API_KEY_HIDDEN"));
         
@@ -969,4 +985,4 @@ export default {
     document.removeEventListener('paste', this.handlePaste);
   }
 }
-</script> 
+</script>
